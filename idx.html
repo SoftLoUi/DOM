@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOM</title>
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <main id="main">
+
+        <div id="Etiquetas">
+            <h1>DOM</h1> 
+            <p id="demoh">dmeo</p>
+            <p id="demoho">dmeo</p>
+                <p id="intro">intro.</p>
+                <p id="p1">p1</p>
+                <p id="titulo">titulo viejo</p>
+            
+            
+            <p class="intro">ejemplo 1</p>
+            <p class="intro">ejemplo 2</p>
+            <h1>Ejemplo h1</h1>
+        </div>
+        
+        <div id="Lista">
+            <h2>Lista</h2>
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+        </div>
+        
+        <div id="Forms">
+            <h2>Forms</h2>
+            <form id="frm1">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name"><br><br>
+            
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email"><br><br>
+            
+                <label for="message">Mensaje:</label>
+                <textarea id="message" name="message"></textarea><br><br>
+
+                <input id="submit" type="submit">
+            </form>
+
+        </div>
+
+        <div id="Numero">
+            <h1>Validar entrada numérica</h1>
+            <input type="number" id="numero">
+            <button type="button" onclick="miFunction()">Validar</button>
+            <p class="demo2"></p>
+        </div>
+
+        <div id="Imagen">
+            <img id="miImagen" src="/assets/dog1.jpeg" alt="Perro">
+            <button type="button" onclick="cambiarImagen()">Cambiar imagen</button>
+        </div>
+
+        <div id="Hora">
+            <h1>Contenido dinámico</h1>
+            <p id="demo10"></p>
+        </div>
+        
+    </main>
+  
+    <script>
+        // Ejercicio 1
+        document.getElementById("demoho").innerHTML = "¡Hola Mundo!";
+        document.getElementById("intro").innerHTML = "Esto es nuevo";
+        document.getElementById("p1").innerHTML = "Nuevo texto";
+        document.getElementById("titulo").innerHTML = "Nuevo ttulo";
+
+
+        // Ejercicio 2
+        const elements = document.getElementsByName("p");
+        console.log(elements);
+
+        const x = document.getElementById("main");
+        console.log(x);
+
+        const y = x.getElementsByTagName("p");
+        console.log(y);
+
+        // Ejercicio 3  
+        const z = document.getElementsByClassName("intro");
+        console.log(z);
+
+        // Ejercicio 4
+        const a = document.querySelectorAll("p.intro");
+        console.log(a);
+
+        const listItems = document.querySelectorAll("ul > li");
+        console.log(listItems);
+
+        const h1Element = document.querySelector("h1");
+        console.log(h1Element);
+
+        const list = document.querySelector(".list");
+        console.log(list);
+
+        const listaDeElementos = document.querySelectorAll("ul > li");
+        listaDeElementos.forEach((item) => {
+            console.log(item);
+        });
+
+        h1Element.style.color = "blue";
+
+
+        // Ejercicio 5
+        const f1 = document.forms["frm1"];
+        let texto = "";
+
+        for (let i = 0; i < f1.length; i++) {
+            texto += f1.elements[i].value;
+        }
+        document.getElementById("demoh").innerHTML = texto;
+        console.log(f1);
+
+        // Ejercicio 6
+        const main = document.getElementById("main");
+
+        let lista = document.createElement("ul");
+        lista.className="list-js";
+        Lista.appendChild(lista);
+
+        let elemento1 = document.createElement("li");
+        elemento1.textContent = "Flor";
+        Lista.appendChild(elemento1);
+
+        let elemento2 = document.createElement("li");
+        elemento2.textContent = "Jaguar";
+        Lista.appendChild(elemento2);
+
+        // Ejercicio 7
+        const button = document.createElement("button");
+        button.id = "btn";
+        button.className="styled-button";
+        button.textContent = "Haz Click";
+        Hora.appendChild(button);
+
+        button.addEventListener("click", () => {
+            alert("Gracias por dar Click");
+        });
+
+        // Ejercicio 8
+        /* 
+        function validarFormulario() {
+            let x = document.forms["frm1"]["name"].value; 
+            if(x == ""){
+                alert("Se debe completar el nombre");
+                return false;}}
+        */
+     
+        document.getElementById('frm1').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let nombre = document.forms["frm1"]["name"].value;
+            let email = document.forms["frm1"]["email"].value;
+            let mensaje = document.forms["frm1"]["message"].value;
+
+            if (nombre === "") {
+                alert("Se debe completar el nombre");
+                return false;
+            }
+            if (email === "") {
+                alert("Se debe completar el correo electrónico");
+                return false;
+            }
+            alert("Formulario enviado correctamente");
+            event.target.submit();
+        });
+
+
+        function miFunction() {
+            let x = document.getElementById("numero").value;
+            let texto;
+            if(isNaN(x) || x < 1 || x > 10){
+                alert("Entrada incorrecta");
+            } else {
+                alert ("Entrada correcta");
+            }
+        }
+
+        // Ejercicio 9
+        function cambiarImagen() {
+            const imagen = document.getElementById("miImagen");
+            if (imagen.src.includes("cat.jpeg")) {
+                imagen.src = "/assets/dog1.jpeg";
+            } else {
+                imagen.src = "/assets/cat.jpeg";
+            }
+        }
+        
+
+        // Ejercicio 10
+        function mostrarFechaHora() {
+            const demo = document.getElementById("demo10");
+            const fechaHora = new Date();
+            const fechaHoraFormateada = fechaHora.toLocaleDateString() + " " + fechaHora.toLocaleTimeString();
+            demo.innerHTML = "Fecha y hora actual: " + fechaHoraFormateada;
+        }
+
+        mostrarFechaHora();
+    </script>
+</body>
+</html>
